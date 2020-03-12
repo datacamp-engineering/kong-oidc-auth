@@ -158,7 +158,7 @@ end
 function _M.run(conf)
 	local path_prefix = ""
 	local callback_url = ""
-	local scheme = kong.request.get_scheme()
+	local scheme = "https"
 	cookieDomain = ";Domain=" .. conf.cookie_domain
 	salt = conf.salt
 

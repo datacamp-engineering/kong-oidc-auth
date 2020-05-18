@@ -171,12 +171,12 @@ function _M.run(conf)
 	
 	if pl_stringx.endswith(path_prefix, "/") then
 	  path_prefix = path_prefix:sub(1, path_prefix:len() - 1)
-	  callback_url = scheme .. "://" .. ngx.var.host .. "/oidc/callback"
-	elseif pl_stringx.endswith(path_prefix, "/oidc/callback") then --We are in the callback of our proxy
+	  callback_url = scheme .. "://" .. ngx.var.host .. conf.callback_url
+	elseif pl_stringx.endswith(path_prefix, conf.callback_url) then --We are in the callback of our proxy
 	  callback_url = scheme .. "://" .. ngx.var.host .. path_prefix
 	  handle_callback(conf, callback_url)
 	else
-	  callback_url = scheme .. "://" .. ngx.var.host .. "/oidc/callback"
+	  callback_url = scheme .. "://" .. ngx.var.host .. conf.callback_url
 	end
 
 	local encrypted_token = ngx.var.cookie_EOAuthToken

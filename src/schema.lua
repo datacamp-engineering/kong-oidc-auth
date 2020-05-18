@@ -32,6 +32,7 @@ return {
     user_info_periodic_check = {type = "number", required = true, default = 60},
     hosted_domain = {type = "string", default = ""},
     email_key = {type = "string", default = ""},
-    user_info_cache_enabled = {type = "boolean", default = false}
+    user_info_cache_enabled = {type = "boolean", default = false},
+    callback_url = {type = "string", default = "/oidc/callback"}
   }
 }

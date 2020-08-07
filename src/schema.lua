@@ -33,6 +33,7 @@ return {
     hosted_domain = {type = "string", default = ""},
     email_key = {type = "string", default = ""},
     user_info_cache_enabled = {type = "boolean", default = false},
+    infer_scheme = {type= "boolean", default = false},
     callback_url = {type = "string", default = "/oidc/callback"}
   }
 }

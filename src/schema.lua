@@ -34,6 +34,7 @@ return {
     email_key = {type = "string", default = ""},
     user_info_cache_enabled = {type = "boolean", default = false},
     infer_scheme = {type= "boolean", default = false},
+    server_port = {type= "number", default = 0},
     callback_url = {type = "string", default = "/oidc/callback"}
   }
 }

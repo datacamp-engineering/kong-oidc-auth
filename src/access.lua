@@ -158,7 +158,8 @@ end
 function _M.run(conf)
 	local path_prefix = ""
 	local callback_url = ""
-	local scheme = conf.infer_scheme and kong.request.get_scheme() or "https"
+    local scheme = conf.infer_scheme and kong.request.get_scheme() or "https"
+    local port = ""
 	cookieDomain = ";Domain=" .. conf.cookie_domain
 	salt = conf.salt
 
@@ -167,16 +168,20 @@ function _M.run(conf)
 	   path_prefix = ngx.var.request_uri:sub(1, ngx.var.request_uri:find('?') -1)
 	else
 	   path_prefix = ngx.var.request_uri
-	end
+    end
+
+    if conf.server_port ~= 0 then
+        port = ":" .. conf.server_port
+    end
 	
 	if pl_stringx.endswith(path_prefix, "/") then
 	  path_prefix = path_prefix:sub(1, path_prefix:len() - 1)
-	  callback_url = scheme .. "://" .. ngx.var.host .. conf.callback_url
+	  callback_url = scheme .. "://" .. ngx.var.host .. port .. conf.callback_url
 	elseif pl_stringx.endswith(path_prefix, conf.callback_url) then --We are in the callback of our proxy
-	  callback_url = scheme .. "://" .. ngx.var.host .. path_prefix
+	  callback_url = scheme .. "://" .. ngx.var.host .. port .. path_prefix
 	  handle_callback(conf, callback_url)
 	else
-	  callback_url = scheme .. "://" .. ngx.var.host .. conf.callback_url
+	  callback_url = scheme .. "://" .. ngx.var.host .. port .. conf.callback_url
 	end
 
 	local encrypted_token = ngx.var.cookie_EOAuthToken
